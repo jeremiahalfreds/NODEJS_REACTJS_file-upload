@@ -2,4 +2,4 @@
 #
 # You might encounter an error when you upload a file with a very larger size
 #
-# So take into consideration your file size with displaying on the frontend
+# So take into consideration your file size when displaying on the frontend
