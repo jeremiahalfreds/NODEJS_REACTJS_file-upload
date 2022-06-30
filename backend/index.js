@@ -13,13 +13,17 @@ const User = require("./models/userModels");
 const fs = require("fs");
 const path = require("path");
 
+// When you wanna use the file-upload uncomment this
 // const upload = require("express-fileupload")
 
 // Calling the Express(), BodyParser, & a Static("public"), EJS Template to get extra styling and resources
 const app = express();
+
+// Work only with File-upload not multer
 // app.use(upload({
 //   limits: { fileSize:  1024 * 1024 }
 // }));
+
 app.use(cors());
 app.use(express.static("public"));
 // ============ Parse application/json
@@ -60,7 +64,7 @@ const upload = multer({ storage: storage });
 
 /*======================= Routes Below ==========================*/
 
-// Post the data to the doc 
+// Post the data to the doc with MULTER
 app.post("/", upload.single("image"), (req, res) => {
   console.log(req.body);
   console.log(req.file);
@@ -73,15 +77,16 @@ app.post("/", upload.single("image"), (req, res) => {
     },
   })
 
-  // saveImage.save().then((res) => {
-  //     console.log("image is saved");
-  //   })
-  //   .catch((err) => {
-  //     console.log(err, "error has occur");
-  //   });
+  saveImage.save().then((res) => {
+      console.log("image is saved");
+    })
+    .catch((err) => {
+      console.log(err, "error has occur");
+    });
   res.send("image is saved............");
 })
 
+// Post the data to the doc with file-upload
 // app.post("/", async (req, res) => {
 //   const { name } = req.body;
 
@@ -113,6 +118,7 @@ app.post("/", upload.single("image"), (req, res) => {
 //   }
 
 // })
+
 
 // Read the data from the database
 app.get("/", async (req, res) => {
